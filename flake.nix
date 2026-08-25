@@ -20,7 +20,7 @@
           owner = "FLSoz";
           repo = "terratech-steam-mod-loader";
           rev = "v${version}";
-          hash = "sha256-raRpP51kum5kJaHEWFN+l1NDGtfx1iifLomkPZlaa9k=";
+          hash = "sha256-qAsWYeNyo3qNiuE2jZ6aZCdQ4h7GH/bdPpHwqsi/2Ek=";
         };
 
         # Shared native libs for Electron runtime and native Node addons
@@ -67,7 +67,7 @@
           pname = "terratech-steam-mod-manager";
           inherit version src;
 
-          npmDepsHash = "sha256-qAsWYeNyo3qNiuE2jZ6aZCdQ4h7GH/bdPpHwqsi/2Ek=";
+          npmDepsHash = "sha256-raRpP51kum5kJaHEWFN+l1NDGtfx1iifLomkPZlaa9k=";
 
           # Skip lifecycle scripts during dependency fetch;
           # we handle native rebuilds and DLL builds ourselves.
