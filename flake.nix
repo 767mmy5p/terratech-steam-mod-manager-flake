@@ -67,7 +67,7 @@
           pname = "terratech-steam-mod-manager";
           inherit version src;
 
-          npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+          npmDepsHash = "sha256-qAsWYeNyo3qNiuE2jZ6aZCdQ4h7GH/bdPpHwqsi/2Ek=";
 
           # Skip lifecycle scripts during dependency fetch;
           # we handle native rebuilds and DLL builds ourselves.
