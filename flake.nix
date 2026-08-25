@@ -20,7 +20,7 @@
           owner = "FLSoz";
           repo = "terratech-steam-mod-loader";
           rev = "v${version}";
-          hash = "sha256-qAsWYeNyo3qNiuE2jZ6aZCdQ4h7GH/bdPpHwqsi/2Ek=";
+          hash = "sha256-raRpP51kum5kJaHEWFN+l1NDGtfx1iifLomkPZlaa9k=";
         };
 
         # Shared native libs for Electron runtime and native Node addons
