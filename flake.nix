@@ -69,8 +69,7 @@
           pname = "terratech-steam-mod-manager";
           inherit version src;
 
-          # ⚠️ PLACEHOLDER — replace after first `nix build` attempt.
-          npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+          npmDepsHash = "sha256-IgSWmVX21FLiVa8cBwdP1SuWqzukVgzIP5sNC8uZ/Kk=";
 
           # Skip lifecycle scripts during dependency fetch;
           # we handle native rebuilds and DLL builds ourselves.
