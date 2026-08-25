@@ -127,6 +127,12 @@
             runHook postBuild
           '';
 
+          postPatch = ''
+            if [ -f package-lock.json ]; then
+            sed -i '/"devEngines"/,/}/d' package-lock.json
+            fi
+          '';
+          
           installPhase = ''
             runHook preInstall
 
