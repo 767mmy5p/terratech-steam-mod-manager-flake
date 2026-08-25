@@ -18,7 +18,7 @@
 
         src = pkgs.fetchFromGitHub {
           owner = "FLSoz";
-          repo = "terratech-steam-mod-manager";
+          repo = "terratech-steam-mod-loader";
           rev = "v${version}";
           # ⚠️ PLACEHOLDER — replace after first `nix build` attempt.
           # Nix will print the expected hash on failure.
