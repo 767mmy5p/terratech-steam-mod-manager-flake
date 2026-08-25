@@ -14,7 +14,7 @@
         version = "1.7.10";
 
         # Use the oldest available Electron in nixpkgs
-        electron = pkgs.electron_35;
+        electron = pkgs.electron_37;
 
         src = pkgs.fetchFromGitHub {
           owner = "FLSoz";
@@ -195,7 +195,7 @@ DESKTOP
         devShells.default = pkgs.mkShell {
           inputsFrom = [ terratech-steam-mod-manager ];
           packages = with pkgs; [
-            electron_35
+            electron_37
             nodePackages.cross-env
           ];
 
