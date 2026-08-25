@@ -14,7 +14,6 @@
         version = "1.7.10";
 
         # Use the oldest available Electron in nixpkgs
-        # (electron_33 was removed; 35 is the current oldest)
         electron = pkgs.electron_35;
 
         src = pkgs.fetchFromGitHub {
