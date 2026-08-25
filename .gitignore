@@ -1,0 +1,8 @@
+```
+# Nix-related
+.nix-profile/
+.nix-defexpr/
+.result
+*.drv
+*.nix
+```
