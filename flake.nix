@@ -1,5 +1,5 @@
 {
-  description = "TerraTech Steam Mod Loader - Nix flake";
+  description = "TerraTech Steam Mod Manager - Nix flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -18,7 +18,7 @@
 
         src = pkgs.fetchFromGitHub {
           owner = "FLSoz";
-          repo = "terratech-steam-mod-loader";
+          repo = "terratech-steam-mod-manager";
           rev = "v${version}";
           # ⚠️ PLACEHOLDER — replace after first `nix build` attempt.
           # Nix will print the expected hash on failure.
@@ -65,8 +65,8 @@
           pipewire
         ];
 
-        terratech-steam-mod-loader = pkgs.buildNpmPackage {
-          pname = "terratech-steam-mod-loader";
+        terratech-steam-mod-manager = pkgs.buildNpmPackage {
+          pname = "terratech-steam-mod-manager";
           inherit version src;
 
           # ⚠️ PLACEHOLDER — replace after first `nix build` attempt.
@@ -132,7 +132,7 @@
           installPhase = ''
             runHook preInstall
 
-            appDir=$out/lib/terratech-steam-mod-loader
+            appDir=$out/lib/terratech-steam-mod-manager
             mkdir -p $appDir
             mkdir -p $out/bin
             mkdir -p $out/share/applications
@@ -147,27 +147,27 @@
             [ -d assets ] && cp -r assets $appDir/assets
 
             # ── Desktop entry ────────────────────────────────────────────
-            cat > $out/share/applications/terratech-steam-mod-loader.desktop << 'DESKTOP'
+            cat > $out/share/applications/terratech-steam-mod-manager.desktop << 'DESKTOP'
 [Desktop Entry]
 Name=TerraTech Steam Mod Manager
-Comment=Mod loader for TerraTech Steam Workshop mods
-Exec=terratech-steam-mod-loader %U
-Icon=terratech-steam-mod-loader
+Comment=Mod manager for TerraTech Steam Workshop mods
+Exec=terratech-steam-mod-manager %U
+Icon=terratech-steam-mod-manager
 Type=Application
 Categories=Game;Utility;
-StartupWMClass=terratech-steam-mod-loader
+StartupWMClass=terratech-steam-mod-manager
 DESKTOP
 
             # ── Icon ─────────────────────────────────────────────────────
             for candidate in assets/icon.png assets/icons/icon.png assets/icon_512.png; do
               if [ -f "$candidate" ]; then
-                cp "$candidate" $out/share/icons/hicolor/512x512/apps/terratech-steam-mod-loader.png
+                cp "$candidate" $out/share/icons/hicolor/512x512/apps/terratech-steam-mod-manager.png
                 break
               fi
             done
 
             # ── Wrapper ──────────────────────────────────────────────────
-            makeWrapper ${electron}/bin/electron $out/bin/terratech-steam-mod-loader \
+            makeWrapper ${electron}/bin/electron $out/bin/terratech-steam-mod-manager \
               --add-flags "$appDir" \
               --set NODE_ENV production \
               --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath runtimeDeps}"
@@ -176,31 +176,31 @@ DESKTOP
           '';
 
           meta = with pkgs.lib; {
-            description = "Mod loader for TerraTech Steam Workshop mods";
-            homepage = "https://github.com/FLSoz/terratech-steam-mod-loader";
+            description = "Mod manager for TerraTech Steam Workshop mods";
+            homepage = "https://github.com/FLSoz/terratech-steam-mod-manager";
             license = licenses.mit;
             maintainers = [ ];
             platforms = [ "x86_64-linux" "aarch64-linux" ];
-            mainProgram = "terratech-steam-mod-loader";
+            mainProgram = "terratech-steam-mod-manager";
           };
         };
       in
       {
         packages = {
-          default = terratech-steam-mod-loader;
-          terratech-steam-mod-loader = terratech-steam-mod-loader;
+          default = terratech-steam-mod-manager;
+          terratech-steam-mod-manager = terratech-steam-mod-manager;
         };
 
         # Development shell with all build dependencies
         devShells.default = pkgs.mkShell {
-          inputsFrom = [ terratech-steam-mod-loader ];
+          inputsFrom = [ terratech-steam-mod-manager ];
           packages = with pkgs; [
             electron_33
             nodePackages.cross-env
           ];
 
           shellHook = ''
-            echo "TerraTech Steam Mod Loader — dev shell"
+            echo "TerraTech Steam Mod Manager — dev shell"
             echo "  node $(node --version)  |  electron $(electron --version)"
             echo ""
             echo "Build manually:"
