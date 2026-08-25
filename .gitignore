@@ -4,5 +4,4 @@
 .nix-defexpr/
 .result
 *.drv
-*.nix
 ```
