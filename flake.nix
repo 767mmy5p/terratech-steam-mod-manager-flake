@@ -73,6 +73,7 @@
 
           # Skip lifecycle scripts during dependency fetch;
           # we handle native rebuilds and DLL builds ourselves.
+          npmDepsFetcherVersion = 2;
           npmFlags = [ "--ignore-scripts" "--legacy-peer-deps" ];
 
           nativeBuildInputs = with pkgs; [
