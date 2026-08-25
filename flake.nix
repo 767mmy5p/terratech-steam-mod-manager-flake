@@ -13,8 +13,9 @@
 
         version = "1.7.10";
 
-        # Match the Electron version the project uses
-        electron = pkgs.electron_33;
+        # Use the oldest available Electron in nixpkgs
+        # (electron_33 was removed; 35 is the current oldest)
+        electron = pkgs.electron_35;
 
         src = pkgs.fetchFromGitHub {
           owner = "FLSoz";
@@ -30,17 +31,17 @@
           libusb1
           udev
           # X11 / display
-          xorg.libX11
-          xorg.libXext
-          xorg.libXrender
-          xorg.libXi
-          xorg.libXtst
-          xorg.libXrandr
-          xorg.libXdamage
-          xorg.libXcomposite
-          xorg.libXcursor
-          xorg.libXfixes
-          xorg.libXScrnSaver
+          libx11
+          libxext
+          libxrender
+          libxi
+          libxtst
+          libxrandr
+          libxdamage
+          libxcomposite
+          libxcursor
+          libxfixes
+          libxscrnsaver
           libxkbcommon
           # Graphics
           mesa
@@ -195,7 +196,7 @@ DESKTOP
         devShells.default = pkgs.mkShell {
           inputsFrom = [ terratech-steam-mod-manager ];
           packages = with pkgs; [
-            electron_33
+            electron_35
             nodePackages.cross-env
           ];
 
