@@ -20,9 +20,7 @@
           owner = "FLSoz";
           repo = "terratech-steam-mod-loader";
           rev = "v${version}";
-          # ⚠️ PLACEHOLDER — replace after first `nix build` attempt.
-          # Nix will print the expected hash on failure.
-          hash = "sha256-qAsWYeNyo3qNiuE2jZ6aZCdQ4h7GH/bdPpHwqsi/2Ek=";
+          hash = lib.fakeHash;
         };
 
         # Shared native libs for Electron runtime and native Node addons
@@ -69,7 +67,7 @@
           pname = "terratech-steam-mod-manager";
           inherit version src;
 
-          npmDepsHash = "sha256-IgSWmVX21FLiVa8cBwdP1SuWqzukVgzIP5sNC8uZ/Kk=";
+          npmDepsHash = lib.fakeHash;
 
           # Skip lifecycle scripts during dependency fetch;
           # we handle native rebuilds and DLL builds ourselves.
