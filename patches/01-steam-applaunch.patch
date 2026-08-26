@@ -1,0 +1,53 @@
+--- a/src/main/main.ts
++++ b/src/main/main.ts
+@@ -519,9 +519,47 @@
+ 	log.info('Launching game with custom args:');
+ 	const allArgs = ['+custom_mod_list', workshopID ? `[workshop:${workshopID}]` : '[]', ...args];
+ 	log.info(allArgs);
+-	await child_process.spawn(gameExec, allArgs, {
+-		detached: true
+-	});
++	if (gameExec === 'steam' || /\.exe$/i.test(gameExec)) {
++		// Launch through the Steam client so the user's compatibility tool
++		// (Proton) is used. `-applaunch` forwards extra args to the game.
++		// Also catches Windows .exe paths: users naturally point at
++		// TerraTechWin64.exe, but it cannot be spawned directly on Linux.
++		// NOTE: this process claims app 285920 via steam_appid.txt, and
++		// Steam refuses to launch an app it thinks is already running
++		// (WaitingPrevProcess/AppError_16). The only reliable release is
++		// exiting this process, so always quit after handing off to Steam,
++		// regardless of closeOnLaunch.
++		try {
++			// eslint-disable-next-line global-require
++			require('greenworks').shutdownAPI();
++			log.warn('Shut down local Steamworks session before launching');
++		} catch (err) {
++			log.warn('Could not shut down Steamworks before launch:', err);
++		}
++		const steamChild = child_process.spawn('steam', ['-applaunch', '285920', ...allArgs], {
++			detached: true,
++			stdio: 'ignore'
++		});
++		// An unhandled 'error' event (e.g. ENOENT) would crash the main
++		// process with no diagnostics; log it to the file transport instead.
++		steamChild.on('error', (err) => {
++			log.error('Failed to spawn the Steam client:', err);
++		});
++		steamChild.unref();
++		log.warn(`Handed launch off to the Steam client (pid ${steamChild.pid}); quitting to release app id 285920`);
++		if (!closeOnLaunch) {
++			log.info('Quitting mod manager to release Steam app id for launch');
++			app.quit();
++		}
++	} else {
++		const child = child_process.spawn(gameExec, allArgs, {
++			detached: true
++		});
++		child.on('error', (err) => {
++			log.error(`Failed to spawn ${gameExec}:`, err);
++		});
++		child.unref();
++	}
+ 	if (closeOnLaunch) {
+ 		app.quit();
+ 	}
